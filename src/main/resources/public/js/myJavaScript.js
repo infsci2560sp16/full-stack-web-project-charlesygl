@@ -2,7 +2,7 @@
 function for images changing of main page
 *********************************************************/
 
-var mainImageArray = new Array();
+var mainImageArray = new Array[];
 mainImageArray[0] = "./images/arcteryx-1.jpg";
 mainImageArray[1] = "./images/patagonia-2.jpg";
 mainImageArray[2] = "./images/cg-2.jpg";
@@ -43,7 +43,7 @@ function checkForm(form)
     var re = /^[\w ]+$/;
 
     // validation fails if the input is blank
-    if(form.reg_f_name.value == "") {
+    if(form.reg_f_name.value === "") {
       document.getElementById('f_name_error').innerHTML="Please enter your first name";
       form.reg_f_name.focus();
       return false;
@@ -56,7 +56,7 @@ function checkForm(form)
       return false;
     }
 
-    if(form.reg_l_name.value == "") {
+    if(form.reg_l_name.value === "") {
       document.getElementById('l_name_error').innerHTML="Please enter your last name";
       form.reg_l_name.focus();
       return false;
@@ -69,13 +69,13 @@ function checkForm(form)
       return false;
     }
 
-    if(form.reg_email_addr.value == "") {
+    if(form.reg_email_addr.value === "") {
       document.getElementById('email_addr_error').innerHTML="Please enter your email address";
       form.reg_email_addr.focus();
       return false;
     }
 
-    if(form.reg_pwd.value == "") {
+    if(form.reg_pwd.value === "") {
       document.getElementById('pwd_error').innerHTML="Please enter your password";
       form.reg_pwd.focus();
       return false;
@@ -88,7 +88,7 @@ function checkForm(form)
       return false;
     }
 
-    if(form.reg_cfm_pwd.value == "") {
+    if(form.reg_cfm_pwd.value === "") {
       document.getElementById('cfm_pwd_error').innerHTML="Please confirm your password";
       form.reg_cfm_pwd.focus();
       return false;
@@ -109,7 +109,7 @@ function checkForm(form)
         return false;
     }
 
-    if(form.reg_u_name.value == "") {
+    if(form.reg_u_name.value === "") {
       document.getElementById('user_name_error').innerHTML="Please enter your username";
       form.reg_u_name.focus();
       return false;
@@ -122,7 +122,7 @@ function checkForm(form)
       return false;
     }
 
-    if(form.reg_z_code.value == "") {
+    if(form.reg_z_code.value === "") {
       document.getElementById('zip_code_error').innerHTML="Please enter your username";
       form.reg_z_code.focus();
       return false;
@@ -145,8 +145,8 @@ function checkForm(form)
 
 
 function addDiv() {
-    var objTo = document.getElementById('shopping-item-container')
+    var objTo = document.getElementById('shopping-item-container');
     var divtest = document.createElement("div");
-    divtest.innerHTML = "new div"
-    objTo.appendChild(divtest)
+    divtest.innerHTML = "new div";
+    objTo.appendChild(divtest);
 }

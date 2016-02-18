@@ -2,13 +2,7 @@
 function for images changing of main page
 *********************************************************/
 
-var mainImageArray = new Array[];
-mainImageArray[0] = "./images/arcteryx-1.jpg";
-mainImageArray[1] = "./images/patagonia-2.jpg";
-mainImageArray[2] = "./images/cg-2.jpg";
-mainImageArray[3] = "./images/moncler-3.jpg";
-mainImageArray[4] = "./images/wm-1.jpg";
-
+var mainImageArray = ["./images/arcteryx-1.jpg","./images/patagonia-2.jpg", "./images/cg-2.jpg","./images/moncler-3.jpg", "./images/wm-1.jpg"];
 var img = document.getElementById(mainImg);
 var i = 0;
 function nextImage(){

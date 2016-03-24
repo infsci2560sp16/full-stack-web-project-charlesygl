@@ -32,7 +32,7 @@ public class Main {
           //
         //   Amount<Mass> m = Amount.valueOf(energy).to(KILOGRAM);
         //   return "E=mc^2: " + energy + " = " + m.toString();
-        return "Hello !!!!!!!"
+        return "Hello !!!!!!!";
         });
 
     /*get("/", (request, response) -> {

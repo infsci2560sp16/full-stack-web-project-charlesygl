@@ -12,6 +12,7 @@ public class Main {
     Object r3 = new JavaGettingStarted();
     Object r1 = new Week6Routes();
     Object r2 = new Week7Routes();
+    Object r4 = new ItemTest();
     //Object r = new Week8Routes();
   }
 

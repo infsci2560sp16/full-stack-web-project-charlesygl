@@ -21,10 +21,10 @@ public class Main {
 
   public static void main(String[] args) {
 
+    new UserController(new UserService());
+
     port(Integer.valueOf(System.getenv("PORT")));
     staticFileLocation("/public");
-
-     new UserController(new UserService());
 
     get("/hello", (req, res) -> {
           RelativisticModel.select();

@@ -1,5 +1,5 @@
 import static spark.Spark.*;
-import java.util.*;
+import spark.*;
 public class UserController {
 
   public UserController(final UserService userService) {

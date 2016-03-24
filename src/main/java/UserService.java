@@ -2,7 +2,7 @@ import User;
 import java.util.*;
 public class UserService {
 
-    private List<User> allUsers = new List<User>();
+    private List<User> allUsers = new ArrayList<>();
 
     public UserService(){
         allUsers.add(new User("1", "G", "g@gmail.com"));

@@ -677,7 +677,7 @@ input#signin_main_button{
     width:800px;
     height:inherit;
     float: left;
-    background-color: #f79b73;
+    background-color: red;
     position: relative;
     box-sizing: border-box;
 }
@@ -686,7 +686,7 @@ input#signin_main_button{
     width:400px;
     height:inherit;
     float: left;
-    background-color: rgb(174, 150, 244);
+    background-color: yellow;
     position: relative;
     box-sizing: border-box;
 }
@@ -697,7 +697,7 @@ input#signin_main_button{
     float:left;
     position: relative;
     box-sizing: border-box;
-    background-color: rgb(246, 221, 143);
+    background-color: cyan;
 }
 
 .sub-item-img-big{
@@ -706,7 +706,7 @@ input#signin_main_button{
     float:left;
     position: relative;
     box-sizing: border-box;
-    background-color: rgb(200, 244, 169);
+    background-color: pink;
 }
 
 /*******************register.css**********************/

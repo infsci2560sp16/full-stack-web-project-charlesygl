@@ -12,33 +12,23 @@ import static spark.Spark.get;
 
 import com.heroku.sdk.jdbc.DatabaseUrl;
 
-public class JavaGettingStarted {
+public class ItemTest {
 
-  public JavaGettingStarted() {
+  public ItemTest() {
     setupRoutes();
   }
 
   private void setupRoutes() {
-    get("/hello", (req, res) -> "Hello World");
 
-    get("/hi", (req, res) -> "Hi World");
-
-    get("/about", (request, response) -> {
+    get("/item", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
-            attributes.put("title", "About Me");
-            attributes.put("name", "Brian J. Kolowitz");
-            attributes.put("description", "Dr. Kolowitz's Test Full Stack Site.");
-            attributes.put("profession", "Professor");
+            attributes.put("title", "Shopping cart");
+            attributes.put("itemName", "Nike shoes");
+            attributes.put("itemCount", "1");
 
-            return new ModelAndView(attributes, "about.ftl");
+            return new ModelAndView(attributes, "item.ftl");
         }, new FreeMarkerEngine());
 
-    get("/", (request, response) -> {
-            Map<String, Object> attributes = new HashMap<>();
-            attributes.put("message", "Hello World!!!!!");
-
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
 
     get("/db.html", (req, res) -> {
       Connection connection = null;

@@ -17,12 +17,16 @@ import org.jscience.physics.model.RelativisticModel;
 import org.jscience.physics.amount.Amount;
 import com.heroku.sdk.jdbc.DatabaseUrl;
 
+import routes.*;
+
 public class Main {
 
   public static void main(String[] args) {
 
     port(Integer.valueOf(System.getenv("PORT")));
     staticFileLocation("/public");
+
+    Object r = new RouteTest();
 
     new UserController(new UserService());
 

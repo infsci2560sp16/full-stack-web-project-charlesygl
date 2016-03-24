@@ -15,7 +15,6 @@ import static javax.measure.unit.SI.KILOGRAM;
 import javax.measure.quantity.Mass;
 import org.jscience.physics.model.RelativisticModel;
 import org.jscience.physics.amount.Amount;
-
 import com.heroku.sdk.jdbc.DatabaseUrl;
 
 public class Main {
@@ -24,6 +23,8 @@ public class Main {
 
     port(Integer.valueOf(System.getenv("PORT")));
     staticFileLocation("/public");
+
+     new UserController(new UserService());
 
     get("/hello", (req, res) -> {
           RelativisticModel.select();

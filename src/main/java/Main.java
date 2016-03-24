@@ -28,18 +28,18 @@ public class Main {
 
     Object r = new RouteTest();
 
-    new UserController(new UserService());
+    // new UserController(new UserService());
 
-    get("/hello", (req, res) -> {
-          RelativisticModel.select();
+    //get("/hello", (req, res) -> {
+    //      RelativisticModel.select();
 
         //   String energy = System.getenv().get("ENERGY");
           //
         //   Amount<Mass> m = Amount.valueOf(energy).to(KILOGRAM);
         //   return "E=mc^2: " + energy + " = " + m.toString();
-        return "Hello !!!!!!!";
-        });
-
+    //    return "Hello !!!!!!!";
+    //    });
+/*
     get("/try", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("message", "Hello World!");
@@ -72,7 +72,7 @@ public class Main {
         if (connection != null) try{connection.close();} catch(SQLException e){}
       }
     }, new FreeMarkerEngine());
+    */
 
   }
-
 }

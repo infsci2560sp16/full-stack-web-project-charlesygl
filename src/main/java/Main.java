@@ -10,9 +10,9 @@ public class Main {
     staticFileLocation("/public");
 
     //Object r = new JavaGettingStarted();
-    //Object r = new Week6Routes();
-    //Object r = new Week7Routes();
-    Object r = new Week8Routes();
+    Object r1 = new Week6Routes();
+    Object r2 = new Week7Routes();
+    //Object r = new Week8Routes();
   }
 
 }

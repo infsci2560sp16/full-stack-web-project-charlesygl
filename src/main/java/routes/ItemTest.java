@@ -20,13 +20,24 @@ public class ItemTest {
 
   private void setupRoutes() {
 
-    get("/item", (request, response) -> {
+    get("/itemdetails", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
-            attributes.put("title", "Shopping cart");
-            attributes.put("itemName", "Nike shoes");
-            attributes.put("itemCount", "1");
+            List<String> sizeList = new ArrayList<>();
+            sizeList.add("Small");
+            sizeList.add("Medium");
+            sizeList.add("Large");
+            sizeList.add("XLarge");
+            attributes.put("itemName", "BETA AR JACKET MEN'S");
+            attributes.put("itemBrand", "ARC'TERYX");
+            attributes.put("itemCategory", "Shell Jackets");
+            attributes.put("itemPrice", "$549");
+            attributes.put("itemRating","4.3/5.0");
+            attributes.put("itemColor","Black/BlackBlue/DarkRed");
+            attributes.put("itemId","0001-001");
+            attributes.put("itemSize", sizeList);
 
-            return new ModelAndView(attributes, "item.ftl");
+
+            return new ModelAndView(attributes, "itemdetails.ftl");
         }, new FreeMarkerEngine());
 
 

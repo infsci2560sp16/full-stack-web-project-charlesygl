@@ -80,7 +80,7 @@ public class ItemTest {
 		}
 	},gson::toJson);
     
-    get("/dbinsert", (req, res) -> {
+get("/dbinsert", (req, res) -> {
         Connection connection = null;
         Map<String, Object> attributes = new HashMap<>();
         try {
@@ -91,34 +91,20 @@ public class ItemTest {
           stmt.executeUpdate("INSERT INTO items VALUES (000001, 'Air Jordan 1', 'Air Jordan', 'Basketball shoes', 'The first generation of Jordan shoes', 'Black/Red', 5.0, 5, 'Male', 9.0)");
           stmt.executeUpdate("INSERT INTO items VALUES (000002, 'Kobe XI', 'NIKE KOBE', 'Basketball shoes', 'The last generation of Nike Kobe shoes', 'Yellow/Purple', 4.9, 10, 'Male', 8.5)");
           ResultSet rs = stmt.executeQuery("SELECT * FROM items");
-          
-          List<Object> data = new ArrayList<>();
-			while(rs.next()){
-				Map<String, Object> kicks = new HashMap<>();
-				kicks.put("itemID", rs.getString("itemID"));
-				data.add(kicks);
-			}
-			return data;
-        	}catch(Exception ee){
-				ee.printStackTrace();
-				attributes.put("message", "There was an error: "+ee);
-				return new ModelAndView(attributes,"error.ftl");
-			}
-		},gson::toJson);
-//          ArrayList<String> output = new ArrayList<String>();
-//          while (rs.next()) {
-//            output.add( "Read from DB: " + rs.getString("itemID"));
-//          }
-//
-//          attributes.put("results", output);
-//          return new ModelAndView(attributes, "db.ftl");
-//        } catch (Exception e) {
-//          attributes.put("message", "There was an error: " + e);
-//          return new ModelAndView(attributes, "error.ftl");
-//        } finally {
-//          if (connection != null) try{connection.close();} catch(SQLException e){}
-//        }
-//      }, new FreeMarkerEngine());
+         		
+          ArrayList<String> output = new ArrayList<String>();
+          while (rs.next()) {
+            output.add( "Read from DB: " + rs.getString("itemID"));
+          }
+          attributes.put("results", output);
+          return new ModelAndView(attributes, "db.ftl");
+        } catch (Exception e) {
+          attributes.put("message", "There was an error: " + e);
+          return new ModelAndView(attributes, "error.ftl");
+        } finally {
+          if (connection != null) try{connection.close();} catch(SQLException e){}
+        }
+      }, new FreeMarkerEngine());
 
     get("/db.html", (req, res) -> {
       Connection connection = null;

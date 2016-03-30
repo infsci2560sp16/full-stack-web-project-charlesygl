@@ -79,7 +79,7 @@ public class ItemTest {
 			return new ModelAndView(attributes,"error.ftl");
 		}
 	},gson::toJson);
-    
+/*    
 get("/dbinsert", (req, res) -> {
         Connection connection = null;
         Map<String, Object> attributes = new HashMap<>();
@@ -105,7 +105,7 @@ get("/dbinsert", (req, res) -> {
           if (connection != null) try{connection.close();} catch(SQLException e){}
         }
       }, new FreeMarkerEngine());
-
+*/
     get("/db.html", (req, res) -> {
       Connection connection = null;
       Map<String, Object> attributes = new HashMap<>();
@@ -131,6 +131,52 @@ get("/dbinsert", (req, res) -> {
         if (connection != null) try{connection.close();} catch(SQLException e){}
       }
     }, new FreeMarkerEngine());
+
+get("/xmlpage", (req, res) -> {
+    	Connection connection = null;
+    		
+    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder builder = factory.newDocumentBuilder();
+	    Document doc = builder.newDocument();
+	    Element results = doc.createElement("Results"); //the result set tag name
+	    doc.appendChild(results);
+	    
+	    // get result from heroku db
+	    connection = DatabaseUrl.extract().getConnection();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM items");
+		//get column count of resultset
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columCount = rsmd.getColumnCount();
+	    
+		while (rs.next()){
+			Element row = doc.createElement("Item"); //the tag for every item
+			results.appendChild(row);
+			for(int i =1; i<= columCount; i++){
+				String columnName = rsmd.getColumnName(i);
+				Object value = rs.getObject(i);
+				Element node = doc.createElement(columnName);
+				node.appendChild(doc.createTextNode(value.toString()));
+				row.appendChild(node);
+			}
+		}
+		
+		DOMSource domSource = new DOMSource(doc);
+	    TransformerFactory tf = TransformerFactory.newInstance();
+	    Transformer transformer = tf.newTransformer();
+	    transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+	    transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+	    transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+	    StringWriter sw = new StringWriter();
+	    StreamResult sr = new StreamResult(sw);
+	    transformer.transform(domSource, sr);
+
+	    String xml = sw.toString();
+	    return xml;
+			
+//		rs.close();
+//		stmt.close();
+    });
     
   }
 }

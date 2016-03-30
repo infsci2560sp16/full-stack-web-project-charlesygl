@@ -49,7 +49,7 @@ public class ItemTest {
             attributes.put("itemPrice", "$549");
             attributes.put("itemRating","4.3");
             attributes.put("itemColor","Black/BlackBlue/DarkRed");
-            attributes.put("itemId","0001-001");
+            attributes.put("itemId","0000001");
             //attributes.put("itemSize", sizeList);
             return new ModelAndView(attributes, "itemdetails.ftl");
         }, new FreeMarkerEngine());
@@ -90,7 +90,7 @@ public class ItemTest {
 			return new ModelAndView(attributes,"error.ftl");
 		}
 	},gson::toJson);
-
+/*
     get("/dbinsertregister", (req, res) -> {
         Connection connection = null;
         Map<String, Object> attributes = new HashMap<>();
@@ -115,6 +115,7 @@ public class ItemTest {
           if (connection != null) try{connection.close();} catch(SQLException e){}
         }
       }, new FreeMarkerEngine());
+*/
 /*
     get("/dbinsert", (req, res) -> {
         Connection connection = null;

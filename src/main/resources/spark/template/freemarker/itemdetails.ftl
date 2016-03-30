@@ -169,9 +169,6 @@
                     <div class="form-btn-size-qty">
                         <div class="form-btn-size">
                             <select class="form-size-select">
-                                [#list sizeList as itemSize]
-                                    <option value="${itemSize}">${itemSize}</option>
-                                [/#list]
                             </select>
                         </div>
                         <div class="form-btn-qty">

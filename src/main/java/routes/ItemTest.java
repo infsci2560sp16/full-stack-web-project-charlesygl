@@ -90,6 +90,32 @@ public class ItemTest {
 			return new ModelAndView(attributes,"error.ftl");
 		}
 	},gson::toJson);
+
+    get("/dbinsertregister", (req, res) -> {
+        Connection connection = null;
+        Map<String, Object> attributes = new HashMap<>();
+        try {
+          connection = DatabaseUrl.extract().getConnection();
+
+          Statement stmt = connection.createStatement();
+          stmt.executeUpdate("CREATE TABLE IF NOT EXISTS registers (email varchar(50) PRIMARY KEY NOT NULL, firstName varchar(50), lastName varchar(50), passwordUser varchar(50), userName varchar(50), zipCode varchar(20))");
+          stmt.executeUpdate("INSERT INTO registers VALUES ('mj23@bulls.com', 'Michael', 'Jordan', 'Chicago', 'mj23', '12345')");
+          ResultSet rs = stmt.executeQuery("SELECT * FROM registers");
+         		
+          ArrayList<String> output = new ArrayList<String>();
+          while (rs.next()) {
+            output.add( "Read from DB: " + rs.getString("email"));
+          }
+          attributes.put("results", output);
+          return new ModelAndView(attributes, "db.ftl");
+        } catch (Exception e) {
+          attributes.put("message", "There was an error: " + e);
+          return new ModelAndView(attributes, "error.ftl");
+        } finally {
+          if (connection != null) try{connection.close();} catch(SQLException e){}
+        }
+      }, new FreeMarkerEngine());
+/*
     get("/dbinsert", (req, res) -> {
         Connection connection = null;
         Map<String, Object> attributes = new HashMap<>();
@@ -115,6 +141,7 @@ public class ItemTest {
           if (connection != null) try{connection.close();} catch(SQLException e){}
         }
       }, new FreeMarkerEngine());
+*/
 /*    
 get("/dbinsert", (req, res) -> {
         Connection connection = null;

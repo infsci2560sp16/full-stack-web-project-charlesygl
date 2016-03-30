@@ -618,7 +618,6 @@ input#signin_main_button{
     width:1200px;
     height:100%;
     margin:0 auto;
-    background-color:rgb(104, 233, 230);
     position: relative;
 }
 
@@ -926,4 +925,24 @@ input#signin_main_button{
     float: left;
     position: relative;
     box-sizing: border-box;
+}
+
+/*******************filterpage.css**********************/
+/*******************filterpage.css**********************/
+/*******************filterpage.css**********************/
+/*******************filterpage.css**********************/
+/*******************filterpage.css**********************/
+/*******************filterpage.css**********************/
+.filterpage-bar{
+    width:100%;
+    height:800px;
+    position: relative;
+    float: left;
+}
+.filter-div-area{
+    width:inherit;
+    height: inherit;
+    position: relative;
+    float: left;
+    background-color: rgb(241, 218, 210);
 }

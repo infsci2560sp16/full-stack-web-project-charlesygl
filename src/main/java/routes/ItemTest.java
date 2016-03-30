@@ -90,6 +90,31 @@ public class ItemTest {
 			return new ModelAndView(attributes,"error.ftl");
 		}
 	},gson::toJson);
+    get("/dbinsert", (req, res) -> {
+        Connection connection = null;
+        Map<String, Object> attributes = new HashMap<>();
+        try {
+          connection = DatabaseUrl.extract().getConnection();
+
+          Statement stmt = connection.createStatement();
+          stmt.executeUpdate("CREATE TABLE IF NOT EXISTS items (itemID int PRIMARY KEY NOT NULL, itemName varchar(100), itemPrice float, itemBrand varchar(100), itemCategory varchar(100), itemDescription varchar(200), itemColor varchar(50), itemRating float, itemStock int, itemGender varchar(20), itemSize varchar(50))");
+          stmt.executeUpdate("INSERT INTO items VALUES (000001, 'THETA SVX JACKET MEN', 749.00, 'ARCTERYX', 'Shell Jackets', 'A highly featured, severe weather condition jacket, designed for wet, stormy days', 'Black/Yellow/Blue', 5.0, 66, 'Male', 'S/M/L/XL')");
+          stmt.executeUpdate("INSERT INTO items VALUES (000002, 'BETA AR JACKET MEN', 549.00, 'ARCTERYX', 'Shell Jackets', 'Lightweight and packable, waterproof GORE-TEX Pro jacket', 'Blue/Orange/Black/Grey/Navy', 4.9, 88, 'Male', 'S/M/L/XL')");
+          ResultSet rs = stmt.executeQuery("SELECT * FROM items");
+         		
+          ArrayList<String> output = new ArrayList<String>();
+          while (rs.next()) {
+            output.add( "Read from DB: " + rs.getString("itemID"));
+          }
+          attributes.put("results", output);
+          return new ModelAndView(attributes, "db.ftl");
+        } catch (Exception e) {
+          attributes.put("message", "There was an error: " + e);
+          return new ModelAndView(attributes, "error.ftl");
+        } finally {
+          if (connection != null) try{connection.close();} catch(SQLException e){}
+        }
+      }, new FreeMarkerEngine());
 /*    
 get("/dbinsert", (req, res) -> {
         Connection connection = null;
@@ -117,7 +142,7 @@ get("/dbinsert", (req, res) -> {
         }
       }, new FreeMarkerEngine());
 */
-
+/*
 get("/dbdroptable", (req, res) -> {
         Connection connection = null;
         Map<String, Object> attributes = new HashMap<>();
@@ -142,7 +167,7 @@ get("/dbdroptable", (req, res) -> {
           if (connection != null) try{connection.close();} catch(SQLException e){}
         }
       }, new FreeMarkerEngine());
-
+*/
 get("/xmlpage", (req, res) -> {
     	Connection connection = null;
     	res.type("application/xml");

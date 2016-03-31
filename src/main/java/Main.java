@@ -24,11 +24,7 @@ public class Main {
 
     port(Integer.valueOf(System.getenv("PORT")));
     staticFileLocation("/public");
-    //Object r1 = new Week6Routes();
-    //Object r2 = new Week7Routes();
-    //Object r3 = new JavaGettingStarted();
-    Object r4 = new ItemTest();
-    //Object r = new Week8Routes();
+    Object r1 = new ItemTest();
   }
 
 }

@@ -169,6 +169,10 @@
                     <div class="form-btn-size-qty">
                         <div class="form-btn-size">
                             <select class="form-size-select">
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+                                <option value="xlarge">XLarge</option>
                             </select>
                         </div>
                         <div class="form-btn-qty">

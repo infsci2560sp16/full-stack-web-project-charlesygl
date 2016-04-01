@@ -30,7 +30,7 @@ $(document).ready(function(){
             },
             success: function(data){
                 alert("User added successfully.");
-                window.location.assign(https://lit-cove-9272.herokuapp.com/);
+                window.location.assign("https://lit-cove-9272.herokuapp.com/");
             }
         }); //end of ajax
     }); // end of click function

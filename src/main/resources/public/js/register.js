@@ -21,7 +21,7 @@ $(document).ready(function(){
         console.log(sendObject);
         
         $.ajax({
-            url: 'http://localhost:5432/api/adduser',
+            url: 'https://lit-cove-9272.herokuapp.com/api/adduser',
             type: "POST",
             datatype: "json",
             data: send,

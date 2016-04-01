@@ -10,7 +10,7 @@ import routes.*;
 public class Main {
 
   public static void main(String[] args) {
-	  
+	/*  
 	try{
 		Class.forName("org.postgresql.Driver");
 		Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/test", "postgres", "Ygl871219");
@@ -20,7 +20,7 @@ public class Main {
 	} catch(Exception ee){
 		ee.printStackTrace();
 	}
-	
+	*/
 
     port(Integer.valueOf(System.getenv("PORT")));
     staticFileLocation("/public");

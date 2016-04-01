@@ -242,6 +242,39 @@ get("/xmlpage", (req, res) -> {
 //		rs.close();
 //		stmt.close();
     });
+
+post("/api/adduser", (req, res) ->{
+    	Connection connection = null;
+    	try{
+    		JSONObject jsonObject = new JSONObject(req.body());
+    		
+    		String email = jsonObject.getString("reg_email_addr");
+    		String firstName = jsonObject.getString("reg_f_name");
+    		String lastName = jsonObject.getString("reg_l_name");
+    		String passwordUser = jsonObject.getString("reg_pwd");
+    		String userName = jsonObject.getString("reg_u_name");
+    		String zipCode = jsonObject.getString("reg_z_code");
+    		
+    		String sql = "INSERT INTO registers VALUES ('" + email + "', '" + firstName + "', '" + lastName + "', '" + passwordUser + "', '" + userName + "', '" + zipCode + "')";
+    		
+    		connection = DatabaseUrl.extract().getConnection();
+    		Statement stmt = connection.createStatement();
+    		stmt.executeUpdate(sql);
+    		
+    		res.status(200);
+    		return req.body();
+    		
+    	} catch(Exception e){
+    		res.status(500);
+    		return e.getMessage();
+    	} finally {
+    		res.status(500);
+    		if(connection != null) try {
+    			connection.close();
+    		} catch (SQLException e){
+    		}
+    	}	
+    });
     
   }
 }

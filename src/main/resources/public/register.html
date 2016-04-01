@@ -17,7 +17,9 @@
     <link rel="stylesheet" href="./stylesheets/styles.css">
 
     <!-- JavaScript file -->
-    <script src="./js/myJavaScript.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/register.js"></script>
+    <script type="text/javascript" src="./js/serializeJSON.js"></script>
 
 </head>
 
@@ -97,7 +99,7 @@
         <div class="create-account-title">
             <span>Create your ChilliBuy account</span>
         </div>
-        <form method="POST" id="c_form" name="c_reg_info_form" class="customer-register-form" onsubmit="return checkForm(c_reg_info_form)">
+        <form method="POST" id="c_form" name="c_reg_info_form" class="customer-register-form" >
             <div class="customer-register-form-left">
                 <label for="register_first_name">First Name*</label><br />
                 <input type="text" name="reg_f_name" id="register_first_name">
@@ -116,7 +118,7 @@
                 <span id="pwd_error"></span>
                 <br />
                 <label for="register_cfm_pwd">Confirm Password*</label><br />
-                <input type="password"  id="register_cfm_pwd">
+                <input type="password" name="cfm_reg_pwd" id="register_cfm_pwd">
                 <span id="cfm_pwd_error"></span>
                 <br />
             </div>

@@ -30,7 +30,7 @@ $(document).ready(function(){
             },
             success: function(data){
                 alert("User added successfully.");
-                window.location.assign("/index.html");
+                window.location.assign("../index.html");
             }
         }); //end of ajax
         return false;

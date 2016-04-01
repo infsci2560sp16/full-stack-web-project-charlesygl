@@ -33,6 +33,7 @@ $(document).ready(function(){
                 window.location.assign("https://lit-cove-9272.herokuapp.com/");
             }
         }); //end of ajax
+        return false;
     }); // end of click function
 }); // end of ready 
 

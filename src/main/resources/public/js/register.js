@@ -32,7 +32,7 @@ $(document).ready(function(){
                 alert("User added successfully.");
                 window.location.href = '/index.html';
             }
-        }); //end of ajx
+        }); //end of ajax
     }); // end of click function
 }); // end of ready 
 

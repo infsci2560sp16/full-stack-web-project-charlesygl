@@ -14,8 +14,8 @@ $(document).ready(function(){
         var zipCodeValue = document.getElementById('register_zip_code').value;
         
         // Convert form data to JSON
-        var object = $('#c_form').serializeJSON();
-        var sendObject = JSON.stringify(object);
+        var obj = $('#c_form').serializeJSON();
+        var sendObject = JSON.stringify(obj);
         
         // Get JSON
         console.log(sendObject);
@@ -30,7 +30,7 @@ $(document).ready(function(){
             },
             success: function(data){
                 alert("User added successfully.");
-                window.location.assign("https://lit-cove-9272.herokuapp.com/");
+                window.location.assign("/index.html");
             }
         }); //end of ajax
         return false;

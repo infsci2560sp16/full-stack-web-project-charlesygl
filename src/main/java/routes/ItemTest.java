@@ -258,11 +258,11 @@ post("/api/adduser", (req, res) ->{
     		String userName = jsonObject.getString("reg_u_name");
     		String zipCode = jsonObject.getString("reg_z_code");
     		
-    		String sql = "INSERT INTO registers VALUES ('" + email + "', '" + firstName + "', '" + lastName + "', '" + passwordUser + "', '" + userName + "', '" + zipCode + "')";
+    		//String sql = "INSERT INTO registers VALUES ('" + email + "', '" + firstName + "', '" + lastName + "', '" + passwordUser + "', '" + userName + "', '" + zipCode + "')";
     		
     		connection = DatabaseUrl.extract().getConnection();
     		Statement stmt = connection.createStatement();
-    		stmt.executeUpdate(sql);
+    		stmt.executeUpdate("INSERT INTO registers VALUES ('kobe24@lakers.com', 'Kobe', 'Bryant', 'Los Angeles', 'kobe24', '12345')");
     		
     		res.status(200);
     		return req.body();

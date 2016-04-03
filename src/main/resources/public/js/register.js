@@ -24,13 +24,13 @@ $(document).ready(function(){
             url: "https://lit-cove-9272.herokuapp.com/api/adduser",
             type: "POST",
             datatype: "json",
-            data: send,
+            data: sendObject,
             error: function(xhr, error) {
                 alert('Error! Status = ' + xhr.status + ' Message = ' + error);
             },
             success: function(data){
                 alert("User added successfully.");
-                window.location.assign("../index.html");
+                window.location.assign("/index.html");
             }
         }); //end of ajax
         return false;

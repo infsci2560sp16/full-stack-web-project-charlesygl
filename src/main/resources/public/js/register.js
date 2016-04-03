@@ -27,10 +27,12 @@ $(document).ready(function(){
             data: sendObject,
             error: function(xhr, error) {
                 alert('Error! Status = ' + xhr.status + ' Message = ' + error);
+                alert(sendObject);
             },
             success: function(data){
                 alert("User added successfully.");
-                window.location.href="https://lit-cove-9272.herokuapp.com/";
+                alert(sendObject);
+                window.location.href="/index.html";
             }
         }); //end of ajax
         return false;

@@ -13,8 +13,16 @@ $(document).ready(function(){
         var userNameValue = document.getElementById('register_user_name').value;
         var zipCodeValue = document.getElementById('register_zip_code').value;
         
+        var obj = {};
+        obj.reg_email_addr = emailAddressValue;
+        obj.reg_f_name = firstNameValue;
+        obj.reg_l_name = lastNameValue;
+        obj.reg_pwd = passwordValue;
+        obj.reg_u_name = userNameValue;
+        obj.reg_z_code = zipCodeValue;
+        
         // Convert form data to JSON
-        var obj = $('#c_form').serializeJSON();
+        //var obj = $('#c_form').serializeJSON();
         var sendObject = JSON.stringify(obj);
         
         // Get JSON

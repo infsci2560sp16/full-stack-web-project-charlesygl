@@ -1,4 +1,5 @@
 function getDataXML() {
+    alert("Hello1");
     $.ajax({
         url: 'https://lit-cove-9272.herokuapp.com/api/productinfo',
     	type: 'GET',
@@ -8,7 +9,7 @@ function getDataXML() {
 }
 
 function handleDataXML(data) {
-    alert("Hello");
+    alert("Hello2");
     $(data).find('itemDetails').each(function(){
     var itemID = $(this).find('itemID').text();
     var itemName = $(this).find('itemName').text();

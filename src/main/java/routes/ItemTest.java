@@ -33,7 +33,7 @@ public class ItemTest {
   public ItemTest() {
     setupRoutes();
   }
-  
+
   Gson gson = new Gson();
 
   private void setupRoutes() {
@@ -55,20 +55,20 @@ public class ItemTest {
             //attributes.put("itemSize", sizeList);
             return new ModelAndView(attributes, "itemdetails.ftl");
         }, new FreeMarkerEngine());
-    
+
     get("/itemtest", (request, response) -> {
         Map<String, Object> attributes = new HashMap<>();
         ItemService itemService = new ItemService();
         attributes.put("whatever", itemService.getAllItems());
         return new ModelAndView(attributes, "itemtest.ftl");
     }, new FreeMarkerEngine());
-    
+
     get("/itemtestjson", (req, res) -> {
     	Map<String, Object> attributes = new HashMap<>();
         ItemService itemService = new ItemService();
         return itemService.getItems();
     }, gson::toJson);
-    
+
     get("/readDBHeroku",(request, response) ->{
 		Map<String,Object> attributes = new HashMap<>();
 		try{
@@ -78,7 +78,7 @@ public class ItemTest {
 				System.out.println("Heroku database connected");
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("Select * from ticks");
-			
+
 			List<Object> data = new ArrayList<>();
 			while(rs.next()){
 				Map<String, Object> kicks = new HashMap<>();
@@ -103,7 +103,7 @@ public class ItemTest {
           stmt.executeUpdate("CREATE TABLE IF NOT EXISTS registers (email varchar(50) PRIMARY KEY NOT NULL, firstName varchar(50), lastName varchar(50), passwordUser varchar(50), userName varchar(50), zipCode varchar(20))");
           stmt.executeUpdate("INSERT INTO registers VALUES ('mj23@bulls.com', 'Michael', 'Jordan', 'Chicago', 'mj23', '12345')");
           ResultSet rs = stmt.executeQuery("SELECT * FROM registers");
-         		
+
           ArrayList<String> output = new ArrayList<String>();
           while (rs.next()) {
             output.add( "Read from DB: " + rs.getString("email"));
@@ -130,7 +130,7 @@ public class ItemTest {
           stmt.executeUpdate("INSERT INTO items VALUES (000001, 'THETA SVX JACKET MEN', 749.00, 'ARCTERYX', 'Shell Jackets', 'A highly featured, severe weather condition jacket, designed for wet, stormy days', 'Black/Yellow/Blue', 5.0, 66, 'Male', 'S/M/L/XL')");
           stmt.executeUpdate("INSERT INTO items VALUES (000002, 'BETA AR JACKET MEN', 549.00, 'ARCTERYX', 'Shell Jackets', 'Lightweight and packable, waterproof GORE-TEX Pro jacket', 'Blue/Orange/Black/Grey/Navy', 4.9, 88, 'Male', 'S/M/L/XL')");
           ResultSet rs = stmt.executeQuery("SELECT * FROM items");
-         		
+
           ArrayList<String> output = new ArrayList<String>();
           while (rs.next()) {
             output.add( "Read from DB: " + rs.getString("itemID"));
@@ -145,7 +145,7 @@ public class ItemTest {
         }
       }, new FreeMarkerEngine());
 */
-/*    
+/*
 get("/dbinsert", (req, res) -> {
         Connection connection = null;
         Map<String, Object> attributes = new HashMap<>();
@@ -157,7 +157,7 @@ get("/dbinsert", (req, res) -> {
           stmt.executeUpdate("INSERT INTO items VALUES (000001, 'Air Jordan 1', 'Air Jordan', 'Basketball shoes', 'The first generation of Jordan shoes', 'Black/Red', 5.0, 5, 'Male', 9.0)");
           stmt.executeUpdate("INSERT INTO items VALUES (000002, 'Kobe XI', 'NIKE KOBE', 'Basketball shoes', 'The last generation of Nike Kobe shoes', 'Yellow/Purple', 4.9, 10, 'Male', 8.5)");
           ResultSet rs = stmt.executeQuery("SELECT * FROM items");
-         		
+
           ArrayList<String> output = new ArrayList<String>();
           while (rs.next()) {
             output.add( "Read from DB: " + rs.getString("itemID"));
@@ -183,7 +183,7 @@ get("/dbdroptable", (req, res) -> {
           //stmt.executeUpdate("INSERT INTO items VALUES (000001, 'Air Jordan 1', 'Air Jordan', 'Basketball shoes', 'The first generation of Jordan shoes', 'Black/Red', 5.0, 5, 'Male', 9.0)");
           //stmt.executeUpdate("INSERT INTO items VALUES (000002, 'Kobe XI', 'NIKE KOBE', 'Basketball shoes', 'The last generation of Nike Kobe shoes', 'Yellow/Purple', 4.9, 10, 'Male', 8.5)");
           ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-         		
+
           ArrayList<String> output = new ArrayList<String>();
           while (rs.next()) {
             output.add( "Read from DB: " + rs.getString("tick"));
@@ -198,6 +198,84 @@ get("/dbdroptable", (req, res) -> {
         }
       }, new FreeMarkerEngine());
 */
+
+get("/api/productinfo", (req, res) -> {
+    Connection connection = null;
+    res.type("application/xml"); //Return as XML
+
+    Map<String, Object> attributes = new HashMap<>();
+    try {
+        //Connect to Database and execute SQL Query
+        connection = DatabaseUrl.extract().getConnection();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM items");
+
+        //Get column count of resultset
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int colCount = rsmd.getColumnCount();
+
+        //create new document
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.newDocument();
+
+        //create new root element for sql results
+        Element results = doc.createElement("items");
+        doc.appendChild(results);
+
+        //create each row as <device> and make column name tags as element
+        while (rs.next()) {
+            Element row = doc.createElement("itemDetails");
+            results.appendChild(row);
+                for (int ii = 1; ii <= colCount; ii++) {
+                    String columnName = rsmd.getColumnName(ii);
+                    Object value = rs.getObject(ii);
+                    Element node = doc.createElement(columnName);
+                    node.appendChild(doc.createTextNode(value.toString()));
+                    row.appendChild(node);
+                }//end for
+        }//end while
+
+        //Add name space to root element inventory
+        Element documentElement = doc.getDocumentElement();
+        documentElement.setAttribute("xmlns", "http://lit-cove-9272.herokuapp.com/schema/productinfo");
+        documentElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        documentElement.setAttribute("xsi:schemaLocation", "http://lit-cove-9272.herokuapp.com/schema/productinfo http://lit-cove-9272.herokuapp.com/schema/productinfo/item.xsd");
+
+
+        //Return OK status and XML for AJAX success
+        res.status(200);
+
+        //Finish formatting as XML and then return XML
+        return (CreateXml.getDocumentAsXml(doc));
+
+    } catch (Exception e) {
+        attributes.put("message", "There was an error: " + e);
+        return attributes;
+    } finally {
+        if (connection != null) try{connection.close();} catch(SQLException e){}
+    }
+  });//End api
+
+  get("/schema/productinfo/item.xsd", (req, res) -> {
+        //Used this make Schema avilable for verification
+
+        Map<String, Object> attributes = new HashMap<>();
+        res.type("application/xml"); //Return as XML
+        try {
+            //Simply read file to page
+            String content = new String(Files.readAllBytes(Paths.get("src/main/resources/public", "item.xsd")));
+
+        return content;
+
+        } catch (Exception e) {
+            attributes.put("message", "There was an error: " + e);
+            return attributes;
+        } finally {
+
+        }
+      });//End api/inventory.xsd
+
 get("/xmlpage", (req, res) -> {
     	Connection connection = null;
     	res.type("application/xml");
@@ -205,9 +283,9 @@ get("/xmlpage", (req, res) -> {
     	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    DocumentBuilder builder = factory.newDocumentBuilder();
 	    Document doc = builder.newDocument();
-	    Element results = doc.createElement("Results"); //the result set tag name
+	    Element results = doc.createElement("Items"); //the result set tag name
 	    doc.appendChild(results);
-	    
+
 	    // get result from heroku db
 	    connection = DatabaseUrl.extract().getConnection();
         Statement stmt = connection.createStatement();
@@ -215,9 +293,9 @@ get("/xmlpage", (req, res) -> {
 		//get column count of resultset
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columCount = rsmd.getColumnCount();
-	    
+
 		while (rs.next()){
-			Element row = doc.createElement("Item"); //the tag for every item
+			Element row = doc.createElement("ItemDetails"); //the tag for every item
 			results.appendChild(row);
 			for(int i =1; i<= columCount; i++){
 				String columnName = rsmd.getColumnName(i);
@@ -227,7 +305,7 @@ get("/xmlpage", (req, res) -> {
 				row.appendChild(node);
 			}
 		}
-		
+
 		DOMSource domSource = new DOMSource(doc);
 	    TransformerFactory tf = TransformerFactory.newInstance();
 	    Transformer transformer = tf.newTransformer();
@@ -240,33 +318,33 @@ get("/xmlpage", (req, res) -> {
 
 	    String xml = sw.toString();
 	    return xml;
-			
+
 //		rs.close();
 //		stmt.close();
     });
 
 post("/api/adduser", (req, res) ->{
-    
+
     	Connection connection = null;
     	try{
     		JSONObject jsonObject = new JSONObject(req.body());
-    		
+
     		String email = jsonObject.getString("reg_email_addr");
     		String firstName = jsonObject.getString("reg_f_name");
     		String lastName = jsonObject.getString("reg_l_name");
     		String passwordUser = jsonObject.getString("reg_pwd");
     		String userName = jsonObject.getString("reg_u_name");
     		String zipCode = jsonObject.getString("reg_z_code");
-    		
-    		//String sql = "INSERT INTO registers VALUES ('" + email + "', '" + firstName + "', '" + lastName + "', '" + passwordUser + "', '" + userName + "', '" + zipCode + "')";
-    		
+
+    		String sql = "INSERT INTO registers VALUES ('" + email + "', '" + firstName + "', '" + lastName + "', '" + passwordUser + "', '" + userName + "', '" + zipCode + "')";
+
     		connection = DatabaseUrl.extract().getConnection();
     		Statement stmt = connection.createStatement();
-    		stmt.executeUpdate("INSERT INTO registers VALUES ('kobe24@lakers.com', 'Kobe', 'Bryant', 'Los Angeles', 'kobe24', '12345')");
-    		
+    		stmt.executeUpdate(sql);
+
     		res.status(200);
     		return req.body();
-    		
+
     	} catch(Exception e){
     		res.status(500);
     		return e.getMessage();
@@ -276,8 +354,8 @@ post("/api/adduser", (req, res) ->{
     			connection.close();
     		} catch (SQLException e){
     		}
-    	}	
+    	}
     }); // end /api/adduser
-    
+
   }
 }

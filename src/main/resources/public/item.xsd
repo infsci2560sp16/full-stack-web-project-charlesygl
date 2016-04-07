@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://lit-cove-9272.herokuapp.com/schema/productinfo"
+           elementForDefault="qualified">
+    <xs:element name="items">
+        <xs:complexType>
+            <xs:element name="item">
+                <xs:complexType>
+                    <xs:squence>
+                        <xs:element name="itemID">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:integer">
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemName">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value = "100" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemBrand">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value = "100" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemCategory">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value = "100" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemDescription">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value = "200" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemColor">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="50" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemRating">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:decimal">
+                                    <xs:minInclusive value="0.0" />
+                                    <xs:maxInclusive value="5.0" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemStock">
+                            <xs:simpleType>]
+                                <xs:restriction base="xs:integer">
+                                    <xs:minInclusive value="0" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemGender">
+                            <xs:simpleType>
+                                <xs:resctriction base="xs:string">
+                                    <xs:maxLength value = "20" />
+                                </xs:resctriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="itemSize">
+                            <xs:restriction base="xs:decimal">
+                                <xs:maxLength value="20" />
+                            </xs:restriction>
+                        </xs:element>
+                    </xs:squence>
+                </xs:complexType>
+            </xs:element>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

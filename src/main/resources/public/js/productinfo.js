@@ -8,6 +8,7 @@ function getDataXML() {
 }
 
 function handleDataXML(data) {
+    alert("Hello");
     $(data).find('itemDetails').each(function(){
     var itemID = $(this).find('itemID').text();
     var itemName = $(this).find('itemName').text();

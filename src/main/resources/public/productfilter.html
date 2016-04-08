@@ -102,6 +102,33 @@
 <div class="filterpage-bar">
     <div class="fixed-width-9">
         <div class="filter-div-area">
+            
+            <table id="productjson">
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Item Name</th>
+                        <th>Item Price</th>
+                        <th>Item Brand</th>
+                        <th>Item Category </th>
+                        <th>Item Description</th>
+                        <th>Item Color</th>
+                        <th>Item Rating</th>
+                        <th>Item Stock</th>
+                        <th>Item Gender</th>
+                        <th>Item Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <script>
+            getData();
+            $(document).ajaxStop(function() {
+                $('#productjson').DataTable()
+            });
+	        </script>
         
 
         </div>

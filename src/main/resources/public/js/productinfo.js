@@ -1,3 +1,12 @@
+function getData() {
+    $.ajax({
+    	url: 'https://lit-cove-9272.herokuapp.com/api/productjson',
+        type: 'GET',
+    	dataType: 'json'
+    });
+}
+
+
 function getDataXML() {
     alert("Hello1");
     $.ajax({

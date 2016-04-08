@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+
 public class ItemTest {
 
   public ItemTest() {
@@ -279,6 +280,50 @@ get("/api/productinfo", (req, res) -> {
         if (connection != null) try{connection.close();} catch(SQLException e){}
     }
   });//End api
+
+get("/api/productjson", (req, res) -> {
+        Connection connection = null;
+        res.type("application/json"); //Return as JSON
+      
+        Map<String, Object> attributes = new HashMap<>();
+        try {
+            //Connect to Database and execute SQL Query
+            connection = DatabaseUrl.extract().getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM items");
+
+            List<JSONObject> resList = new ArrayList<JSONObject>();
+            
+            //get column names to attach to each value
+            ResultSetMetaData rsMeta = rs.getMetaData();
+            int columnCnt = rsMeta.getColumnCount();
+            List<String> columnNames = new ArrayList<String>();
+            for(int i=1;i<=columnCnt;i++) {
+                columnNames.add(rsMeta.getColumnName(i).toUpperCase());
+            }//end for
+        
+            //get data or values and attach column name
+            while(rs.next()) { // convert each object to an human readable JSON object
+                JSONObject obj = new JSONObject();
+                for(int i=1;i<=columnCnt;i++) {
+                    String key = columnNames.get(i - 1);
+                    String value = rs.getString(i);
+                    obj.put(key, value);
+                }//end for
+                resList.add(obj); //Add to ArrayList
+            }//end while
+
+            //Return OK status and JSON for AJAX success
+            res.status(200);
+            return resList;
+          
+        } catch (Exception e) {
+            attributes.put("message", "There was an error: " + e);
+            return attributes;
+        } finally {
+            if (connection != null) try{connection.close();} catch(SQLException e){}
+        }
+      });//End api/
 
   get("/schema/productinfo/item.xsd", (req, res) -> {
         //Used this make Schema avilable for verification

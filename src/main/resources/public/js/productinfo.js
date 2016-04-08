@@ -2,8 +2,17 @@ function getData() {
     $.ajax({
     	url: 'https://lit-cove-9272.herokuapp.com/api/productjson',
         type: 'GET',
-    	dataType: 'json'
+    	dataType: 'json',
+        success: handleData
     });
+}
+
+function handleData(data) {
+    var trHTML = '';
+        $.each(data, function (i, item) {
+            trHTML += '<tr><td>' + item.ITEMID + '</td><td>' + item.ITEMNAME + '</td><td>' + item.ITEMPRICE + '</td><td>' + item.ITEMBRAND + '</td><td>' + item.ITEMCATEGORY + '</td><td>' + item.ITEMDESCRIPTION + '</td><td>' + item.ITEMCOLOR + '</td><td>' + item.ITEMRATING + '</td><td>' + item.ITEMSTOCK + '</td><td>' + item.ITEMGENDER + '</td><td>' + item.ITEMSIZE + '</td></tr>';
+        });
+        $('#inventory').append(trHTML);
 }
 
 

@@ -1,6 +1,6 @@
 function getData() {
     $.ajax({
-    	url: 'https://lit-cove-9272.herokuapp.com/api/productjson',
+    	url: '/api/productjson',
         type: 'GET',
     	dataType: 'json',
         success: handleData
@@ -19,7 +19,7 @@ function handleData(data) {
 function getDataXML() {
     alert("Hello1");
     $.ajax({
-        url: 'https://lit-cove-9272.herokuapp.com/api/productinfo',
+        url: '/api/productinfo',
     	type: 'GET',
     	dataType: 'XML',
         success : handleDataXML
